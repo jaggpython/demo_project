@@ -6,6 +6,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top w-100 p-3">
   <div class="container-fluid">
+    <img src="/images/logo.png" alt="">
     <a class="navbar-brand" href="#">Thandra Ayurusha</a>
 
     <!-- Toggle button for mobile -->
@@ -181,6 +182,11 @@ nav.navbar {
   .carousel-caption h5 {
     font-size: 1rem;
   }
+}
+
+.navbar img {
+  height: 50px; /* Adjust the image height as needed */
+  object-fit: contain;
 }
 
 

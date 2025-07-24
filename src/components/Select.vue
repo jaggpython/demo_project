@@ -144,7 +144,7 @@ const addToCart = () => {
       <!-- Contact Column -->
       <div class="col-12 col-md-3">
         <h5 class="fw-bold">Contact Us</h5>
-        <p class="mb-1"><i class="bi bi-telephone-fill text-success me-2"></i>080-69454448</p>
+        <p class="mb-1"><i class="bi bi-telephone-fill text-success me-2"></i>7488985349, 8105755470</p>
         <p class="mb-1"><i class="bi bi-envelope-fill text-success me-2"></i>thandraayur.usha@gmail.com</p>
         <p class="mb-1">
           <i class="bi bi-geo-alt-fill text-success me-2"></i>
