@@ -4,6 +4,8 @@ import CartItem from '../components/CartItem.vue'
 import ItemPage from '@/components/ItemPage.vue'
 import BuyNow from '@/components/BuyNow.vue'
 import AboutUs from '@/components/AboutUs.vue'
+import Products from '@/components/Products.vue'
+import ContactUs from '@/components/ContactUs.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
       path: '/about_us',
       name: 'about_us',
       component: AboutUs,
+    },
+    {
+      path: '/products',
+      name: 'products',
+      component: Products,
+    },
+    {
+      path: '/contact_us',
+      name: 'contact_us',
+      component: ContactUs,
     },
   ],
 })

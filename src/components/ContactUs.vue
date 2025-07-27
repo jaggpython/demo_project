@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { reactive } from 'vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -9,6 +10,18 @@ const { locale } = useI18n();
 
 const activeTab = ref('about');
 const isMenuOpen = ref(false); // State for mobile menu toggle
+
+const form = reactive({
+    name: '',
+    phone: '',
+    email: '',
+    message: ''
+});
+
+function handleSubmit() {
+    console.log('Form submitted:', form);
+    // Add your API call or logic here
+}
 
 onMounted(() => {
     if (route.path.includes('/products')) {
@@ -38,7 +51,7 @@ const currentLocale = computed(() => locale.value);
 <template>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <div class="about-page">
+    <div class="contact-us-page">
         <!-- Top Bar -->
         <div class="top-bar d-flex justify-content-between px-3 py-3">
             <span>📞 080-69454448</span>
@@ -86,63 +99,62 @@ const currentLocale = computed(() => locale.value);
 
         <!-- Hero Section -->
         <div class="hero-section">
-            <h2>{{ $t('about_us') }}</h2>
+            <h2>{{ $t('contact_us') }}</h2>
         </div>
 
-        <!-- About Content -->
-        <section class="container about-content py-5">
-            <div class="row align-items-start">
-                <div class="col-lg-6 col-md-12 mb-4">
-                    <h3>{{ $t('about_us') }}</h3>
-                    <p>{{ $t('about_us_content') }}</p>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 mb-4">
-                            <div class="person-card">
-                                <img src="/images/munivenkatappa.jpg" alt="Pandit Munesh Gowda" class="person-img">
-                                <h4>Pandit Munesh Gowda</h4>
-                                <p class="role">Founder and CEO, Director</p>
-                                <div class="contact-info">
-                                    <p class="mb-3">
-                                        <i class="bi bi-telephone-fill text-success me-2"></i>
-                                        +91 7259962136
-                                    </p>
-                                    <p class="mb-3">
-                                        <i class="bi bi-envelope-fill text-success me-2"></i>
-                                        <a href="mailto:thandraayur.usha@gmail.com"
-                                            class="text-decoration-none text-dark">
-                                            munishgowda1977@gmail.com
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 mb-4">
-                            <div class="person-card">
-                                <div class="person-img placeholder"></div>
-                                <h4>Jayamma.V</h4>
-                                <p class="role">Director</p>
-                                <div class="contact-info">
-                                    <p class="mb-3">
-                                        <i class="bi bi-telephone-fill text-success me-2"></i>
-                                        +91 8105755470
-                                    </p>
-                                    <p class="mb-3">
-                                        <i class="bi bi-envelope-fill text-success me-2"></i>
-                                        <a href="mailto:thandraayur.usha@gmail.com"
-                                            class="text-decoration-none text-dark">
-                                            jaya.prakashbabuy@gmail.com
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+        <!-- content -->
+        <div class="contact-section container my-5">
+            <div class="contact-card row">
+                <!-- Left Content -->
+                <div class="col-md-6 contact-info p-4">
+                    <h4 class="fw-bold">{{ $t('contact_us_title') }}</h4>
+                    <p class="text-muted mt-4">
+                        {{ $t('contact_us_content') }}
+                    </p>
+
+                    <div class="mt-4">
+                        <p class="mb-2 fw-semibold">{{ $t('company_name') }}</p>
+                        <p class="address-block">
+                            <i class="bi bi-geo-alt-fill text-success me-2"></i>
+                            #45 Yanadahalli Hutur (Hobli), <br>
+                            Kolar - 563101, Karnataka, India
+                        </p>
+                        <p>
+                            <i class="bi bi-envelope-fill text-success me-2"></i>
+                            <a href="mailto:thandraayur.usha@gmail.com" class="text-decoration-none text-dark">
+                                thandraayur.usha@gmail.com
+                            </a>
+                        </p>
+                        <p>
+                            <i class="bi bi-telephone-fill text-success me-2"></i>
+                            080-69454448
+                        </p>
                     </div>
                 </div>
+
+                <!-- Right Form -->
+                <div class="col-md-6 contact-form p-4">
+                    <form @submit.prevent="handleSubmit">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Name" v-model="form.name" required />
+                        </div>
+                        <div class="mb-3 d-flex gap-2">
+                            <input type="text" class="form-control" placeholder="Phone number" v-model="form.phone"
+                                required />
+                            <input type="email" class="form-control" placeholder="Email" v-model="form.email"
+                                required />
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="4" placeholder="Message"
+                                v-model="form.message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success px-4">Send</button>
+                    </form>
+                </div>
             </div>
-        </section>
+        </div>
     </div>
+
 
     <!-- Footer -->
     <div class="footer-page">
@@ -324,31 +336,6 @@ const currentLocale = computed(() => locale.value);
     padding-left: 6%;
 }
 
-/* Person Cards */
-.person-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 5px 0px 6px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-}
-
-.person-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-}
-
-.person-img.placeholder {
-    background: #ddd;
-}
-
-.role {
-    color: gray;
-    font-size: 14px;
-}
 
 /* Language Switch */
 .lang-switch span {
@@ -418,5 +405,21 @@ const currentLocale = computed(() => locale.value);
     left: 0;
     top: 3px;
     /* Adjust vertical alignment */
+}
+
+.contact-card {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.contact-info {
+    border-right: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+    .contact-info {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
 }
 </style>

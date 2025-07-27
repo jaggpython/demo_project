@@ -8,23 +8,18 @@ const route = useRoute();
 const { locale } = useI18n();
 
 const activeTab = ref('about');
-const isMenuOpen = ref(false); // State for mobile menu toggle
+const isMenuOpen = ref(false);
 
 onMounted(() => {
-    if (route.path.includes('/products')) {
-        activeTab.value = 'products';
-    } else if (route.path.includes('/contact')) {
-        activeTab.value = 'contact';
-    } else if (route.path.includes('/about')) {
-        activeTab.value = 'about';
-    } else {
-        activeTab.value = 'home';
-    }
+    if (route.path.includes('/products')) activeTab.value = 'products';
+    else if (route.path.includes('/contact')) activeTab.value = 'contact';
+    else if (route.path.includes('/about')) activeTab.value = 'about';
+    else activeTab.value = 'home';
 });
 
 function setActive(tab: string, path: string) {
     activeTab.value = tab;
-    isMenuOpen.value = false; // close menu on click
+    isMenuOpen.value = false;
     router.push(path);
 }
 
@@ -33,12 +28,16 @@ function changeLanguage(lang: string) {
 }
 
 const currentLocale = computed(() => locale.value);
+
+const goToItemPage = () => router.push('/item_page');
+const goToBuyNow = () => router.push('/buy_now');
+const addToCart = () => alert('Item added to cart!');
 </script>
 
 <template>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <div class="about-page">
+    <div class="products-page">
         <!-- Top Bar -->
         <div class="top-bar d-flex justify-content-between px-3 py-3">
             <span>📞 080-69454448</span>
@@ -68,13 +67,16 @@ const currentLocale = computed(() => locale.value);
                     <li class="nav-item" :class="{ active: activeTab === 'home' }" @click="setActive('home', '/')">
                         <a>{{ $t('home') }}</a>
                     </li>
-                    <li class="nav-item" :class="{ active: activeTab === 'about' }" @click="setActive('about', '/about')">
+                    <li class="nav-item" :class="{ active: activeTab === 'about' }"
+                        @click="setActive('about', '/about_us')">
                         <a>{{ $t('about_us') }}</a>
                     </li>
-                    <li class="nav-item" :class="{ active: activeTab === 'products' }" @click="setActive('products', '/products')">
+                    <li class="nav-item" :class="{ active: activeTab === 'products' }"
+                        @click="setActive('products', '/products')">
                         <a>{{ $t('products') }}</a>
                     </li>
-                    <li class="nav-item" :class="{ active: activeTab === 'contact' }" @click="setActive('contact', '/contact')">
+                    <li class="nav-item" :class="{ active: activeTab === 'contact' }"
+                        @click="setActive('contact_us', '/contact_us')">
                         <a>{{ $t('contact_us') }}</a>
                     </li>
                 </ul>
@@ -83,100 +85,82 @@ const currentLocale = computed(() => locale.value);
 
         <!-- Hero Section -->
         <div class="hero-section">
-            <h2>{{ $t('about_us') }}</h2>
+            <h2>{{ $t('products') }}</h2>
         </div>
 
-        <!-- About Content -->
-        <section class="container about-content py-5">
-            <div class="row align-items-start">
-                <div class="col-lg-6 col-md-12 mb-4">
-                    <h3>{{ $t('about_us') }}</h3>
-                    <p>{{ $t('about_us_content') }}</p>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 mb-4">
-                            <div class="person-card">
-                                <img src="/images/munivenkatappa.jpg" alt="Pandit Munesh Gowda" class="person-img">
-                                <h4>Pandit Munesh Gowda</h4>
-                                <p class="role">Founder and CEO, Director</p>
-                                <div class="contact-info">
-                                    <p>📞 +91 7259962136</p>
-                                    <p>✉ munishgowda1977@gmail.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 mb-4">
-                            <div class="person-card">
-                                <div class="person-img placeholder"></div>
-                                <h4>Jayamma.V</h4>
-                                <p class="role">Director</p>
-                                <div class="contact-info">
-                                    <p>📞 +91 8105755470</p>
-                                    <p>✉ jaya.prakashbabuy@gmail.com</p>
-                                </div>
-                            </div>
+        <!-- Cards Section -->
+        <div class="cards row gx-2 px-2 mx-0 mt-3">
+            <div class="col-6 col-md-4 col-lg-3 mb-4" v-for="i in 8" :key="i">
+                <div class="card h-100" @click="goToItemPage" style="cursor: pointer;">
+                    <img src="/images/shilajit.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Test</p>
+                        <p>Price:</p>
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+                            <button class="btn btn-primary w-100" @click.stop="goToBuyNow">BUY NOW</button>
+                            <button class="btn btn-outline-success w-100" @click.stop="addToCart">Add to Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
 
-    <!-- Footer -->
-    <div class="footer-page">
-        <hr class="under-line" />
-        <footer class="footer-bg py-4">
-            <div class="container">
-                <div class="row text-start align-items-start">
-                    <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
-                        <img src="/images/logo.png" alt="Thandra Logo" style="max-width: 150px;">
-                    </div>
-                    <div class="col-6 col-md-3 mb-3">
-                        <h5 class="fw-bold">Quick Links</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Home</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">About Us</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Products</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Contact Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 mb-3">
-                        <h5 class="fw-bold">Products</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-3">Thandra Ortho Pain Relief Oil</li>
-                            <li class="mb-3">Thandra Anti Acid Powder</li>
-                            <li class="mb-3">Thandra Anti Obesity Powder</li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <h5 class="fw-bold">Contact Us</h5>
+        <!-- Footer -->
+        <div class="footer-page">
+            <hr class="under-line" />
+            <footer class="footer-bg py-4">
+                <div class="container">
+                    <div class="row text-start align-items-start">
+                        <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
+                            <img src="/images/logo.png" alt="Thandra Logo" style="max-width: 150px;">
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <h5 class="fw-bold">Quick Links</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Home</a></li>
+                                <li class="mb-3"><a href="#" class="text-dark text-decoration-none">About Us</a></li>
+                                <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Products</a></li>
+                                <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <h5 class="fw-bold">Products</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-3">Thandra Ortho Pain Relief Oil</li>
+                                <li class="mb-3">Thandra Anti Acid Powder</li>
+                                <li class="mb-3">Thandra Anti Obesity Powder</li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <h5 class="fw-bold">Contact Us</h5>
 
-                        <!-- Phone -->
-                        <p class="mb-3">
-                            <i class="bi bi-telephone-fill text-success me-2"></i>
-                            +91 7488985349, +91 8105755470
-                        </p>
+                            <!-- Phone -->
+                            <p class="mb-3">
+                                <i class="bi bi-telephone-fill text-success me-2"></i>
+                                +91 7488985349, +91 8105755470
+                            </p>
 
-                        <!-- Email -->
-                        <p class="mb-3">
-                            <i class="bi bi-envelope-fill text-success me-2"></i>
-                            <a href="mailto:thandraayur.usha@gmail.com" class="text-decoration-none text-dark">
-                                thandraayur.usha@gmail.com
-                            </a>
-                        </p>
+                            <!-- Email -->
+                            <p class="mb-3">
+                                <i class="bi bi-envelope-fill text-success me-2"></i>
+                                <a href="mailto:thandraayur.usha@gmail.com" class="text-decoration-none text-dark">
+                                    thandraayur.usha@gmail.com
+                                </a>
+                            </p>
 
-                        <!-- Address with location icon -->
-                        <p class="mb-1 address-block">
-                            <i class="bi bi-geo-alt-fill text-success me-2"></i>
-                            Thandra Ayurusha India Pvt. Ltd.<br>
-                            #45 Yanadhalli Hutur (Hobli)<br>
-                            Kolar - 563101, Karnataka, India
-                        </p>
+                            <!-- Address with location icon -->
+                            <p class="mb-1 address-block">
+                                <i class="bi bi-geo-alt-fill text-success me-2"></i>
+                                Thandra Ayurusha India Pvt. Ltd.<br>
+                                #45 Yanadhalli Hutur (Hobli)<br>
+                                Kolar - 563101, Karnataka, India
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
+
     </div>
 </template>
 
@@ -256,13 +240,15 @@ const currentLocale = computed(() => locale.value);
 
 /* Hamburger Icon */
 .hamburger {
-    display: none; /* Show only on mobile */
+    display: none;
+    /* Show only on mobile */
     flex-direction: column;
     cursor: pointer;
     border: 2px solid orange;
     padding: 6px;
     border-radius: 6px;
-    margin-left: auto;  /* Push hamburger to the far right */
+    margin-left: auto;
+    /* Push hamburger to the far right */
 }
 
 .hamburger span {
@@ -292,7 +278,7 @@ const currentLocale = computed(() => locale.value);
 /* Hero Section */
 .hero-section {
     background: linear-gradient(to right, #4caf50, #6cc24a);
-    padding: 40px 0;
+    padding: 30px 0;
     color: white;
     font-size: 24px;
     font-weight: bold;
@@ -301,56 +287,19 @@ const currentLocale = computed(() => locale.value);
     padding-left: 6%;
 }
 
-/* Person Cards */
-.person-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-}
-
-.person-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-}
-
-.person-img.placeholder {
-    background: #ddd;
-}
-
-.role {
-    color: gray;
-    font-size: 14px;
-}
-
-/* Language Switch */
 .lang-switch span {
     cursor: pointer;
     padding: 0 5px;
-    transition: color 0.3s;
 }
 
 .lang-switch .active {
     font-weight: bold;
     color: #4caf50;
-    text-decoration: underline;
 }
 
-/* Footer */
-/* .footer-bg {
-    background-color: #f4fbe8;
-} */
 
-/* Responsive Design */
+/* Mobile Navbar */
 @media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-
     .nav-links {
         flex-direction: column;
         gap: 20px;
@@ -365,6 +314,10 @@ const currentLocale = computed(() => locale.value);
     .nav-links.open {
         max-height: 300px;
         opacity: 1;
+    }
+
+    .hamburger {
+        display: flex;
     }
 
     .custom-navbar .container {
@@ -384,16 +337,34 @@ const currentLocale = computed(() => locale.value);
     }
 }
 
+/* Cards */
+.card img {
+    object-fit: cover;
+    height: 180px;
+    border-radius: 8px;
+}
+
+.card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+/* Footer */
+/* .footer-page .row {
+    text-align: center;
+} */
+
+
 .address-block {
-    padding-left: 25px; /* Indent text after the icon */
+    padding-left: 25px;
+    /* Indent text after the icon */
     position: relative;
 }
 
 .address-block i {
     position: absolute;
     left: 0;
-    top: 3px; /* Adjust vertical alignment */
+    top: 3px;
+    /* Adjust vertical alignment */
 }
-
-
 </style>

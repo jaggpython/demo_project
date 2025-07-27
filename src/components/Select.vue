@@ -11,6 +11,14 @@ const goToAbout = () => {
     router.push('/about_us');
 };
 
+const goToProducts = () => {
+    router.push('/products');
+};
+
+const goToContact = () => {
+    router.push('/contact_us');
+};
+
 const goToBuyNow = () => {
     router.push('/buy_now');
 };
@@ -118,8 +126,10 @@ const addToCart = () => {
                                 <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Home</a></li>
                                 <li class="mb-3"><a href="javascript:void(0);" class="text-dark text-decoration-none"
                                         @click="goToAbout">About Us</a></li>
-                                <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Products</a></li>
-                                <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Contact Us</a></li>
+                                <li class="mb-3"><a href="javascript:void(0);" class="text-dark text-decoration-none"
+                                        @click="goToProducts">Products</a></li>
+                                <li class="mb-3"><a href="javascript:void(0);" class="text-dark text-decoration-none"
+                                        @click="goToContact">Contact Us</a></li>
                             </ul>
                         </div>
 
@@ -177,19 +187,18 @@ const addToCart = () => {
 .move-filter {
     position: relative;
     bottom: -50px;
-
 }
 
 .selected-items {
     position: relative;
     top: 45px;
     padding: 0 15px;
-    right: 15px;
 }
 
 .card img {
     object-fit: cover;
     height: 200px;
+    border-radius: 8px;
 }
 
 .card {
@@ -220,42 +229,25 @@ const addToCart = () => {
     color: #444;
 }
 
-
 .logo-img {
     height: 80px;
     width: 150px;
     object-fit: contain;
 }
 
-/* Responsive adjustments for mobile view */
-@media (max-width: 576px) {
-    .logo-img {
-        height: 60px;
-        width: 120px;
-    }
-
-    .logos {
-        gap: 1rem;
-        /* slightly smaller gap on mobile */
-    }
-}
-
 .logos {
     position: relative;
     top: 30px;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .under-line {
     width: 100%;
-    /* Make the line longer */
     height: 4px;
-    /* Make the line thicker */
     background-color: #0f0303ec;
-    /* Set line color */
     border: none;
-    /* Remove default border */
     margin: 10px auto;
-    /* Center the line with spacing */
 }
 
 .footer-page {
@@ -266,7 +258,6 @@ const addToCart = () => {
 .about-container {
     display: flex;
     flex-direction: row;
-    /* Text left, image right on larger screens */
     align-items: center;
     justify-content: space-between;
     gap: 20px;
@@ -295,29 +286,94 @@ const addToCart = () => {
     object-fit: cover;
 }
 
-/* Responsive for Mobile */
-@media (max-width: 768px) {
-    .about-container {
-        flex-direction: column;
-        /* Stack text & image vertically */
-        text-align: center;
-    }
-
-    .about-text,
-    .about-image {
-        width: 100%;
-        /* Full width on mobile */
-    }
-}
-
 .address-block {
-    padding-left: 25px; /* Indent text after the icon */
+    padding-left: 25px;
     position: relative;
 }
 
 .address-block i {
     position: absolute;
     left: 0;
-    top: 3px; /* Adjust vertical alignment */
+    top: 3px;
+}
+
+/* ============================= */
+/* RESPONSIVE STYLES */
+/* ============================= */
+
+/* For tablets and below */
+@media (max-width: 992px) {
+    .card img {
+        height: 180px;
+    }
+    .about-text h4 {
+        font-size: 1.5rem;
+    }
+    .about-text p {
+        font-size: 0.95rem;
+    }
+    .logo-img {
+        width: 130px;
+        height: 70px;
+    }
+}
+
+/* For mobile */
+@media (max-width: 768px) {
+    .move-filter {
+        bottom: 0;
+        text-align: center;
+    }
+    .custom-select {
+        width: 100%;
+        max-width: 300px;
+        margin: auto;
+    }
+    .selected-items {
+        top: 20px;
+        text-align: center;
+    }
+    .card {
+        top: 20px;
+    }
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-text,
+    .about-image {
+        width: 100%;
+    }
+    .footer-page {
+        top: 40px;
+    }
+}
+
+/* For small mobile screens */
+@media (max-width: 576px) {
+    .logo-img {
+        height: 60px;
+        width: 110px;
+    }
+    .logos {
+        gap: 1rem;
+    }
+    .card img {
+        height: 160px;
+    }
+    .about-text h4 {
+        font-size: 1.3rem;
+    }
+    .about-text p {
+        font-size: 0.9rem;
+    }
+    footer h5 {
+        font-size: 1rem;
+    }
+    footer p, footer li {
+        font-size: 0.9rem;
+    }
 }
 </style>
+
+
