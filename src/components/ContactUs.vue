@@ -45,6 +45,18 @@ function changeLanguage(lang: string) {
     locale.value = lang;
 }
 
+const goToHome = () => {
+    router.push('/');
+}
+
+const goToProducts = () => {
+    router.push('/products');
+};
+
+const goToAbout = () => {
+    router.push('/about_us')
+}
+
 const currentLocale = computed(() => locale.value);
 </script>
 
@@ -168,9 +180,12 @@ const currentLocale = computed(() => locale.value);
                     <div class="col-6 col-md-3 mb-3">
                         <h5 class="fw-bold">Quick Links</h5>
                         <ul class="list-unstyled">
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Home</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">About Us</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Products</a></li>
+                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none"
+                                    @click="goToHome">Home</a></li>
+                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none" 
+                                    @click="goToAbout">About Us</a></li>
+                            <li class="mb-3"><a href="#" class="text-dark text-decoration-none"
+                                    @click="goToProducts">Products</a></li>
                             <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Contact Us</a></li>
                         </ul>
                     </div>

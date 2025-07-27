@@ -192,7 +192,6 @@ const addToCart = () => {
 .selected-items {
     position: relative;
     top: 45px;
-    padding: 0 15px;
 }
 
 .card img {
@@ -322,16 +321,15 @@ const addToCart = () => {
 @media (max-width: 768px) {
     .move-filter {
         bottom: 0;
-        text-align: center;
+        
     }
-    .custom-select {
+    /* .custom-select {
         width: 100%;
         max-width: 300px;
         margin: auto;
-    }
+    } */
     .selected-items {
-        top: 20px;
-        text-align: center;
+        top: 10px;
     }
     .card {
         top: 20px;
